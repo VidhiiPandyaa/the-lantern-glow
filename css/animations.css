@@ -1,0 +1,130 @@
+/* ==========================================
+   TLG — ANIMATIONS
+   ========================================== */
+
+/* ---------- AOS overrides ---------- */
+[data-aos] { pointer-events: none; }
+[data-aos].aos-animate { pointer-events: auto; }
+
+/* ---------- Page Load Intro ---------- */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.page-loader.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loader-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--white);
+  animation: loaderFade 1.2s ease forwards;
+}
+.loader-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  animation: loaderExpand 1.2s ease forwards;
+}
+@keyframes loaderFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes loaderExpand {
+  from { width: 0; opacity: 0; }
+  to   { width: 60px; opacity: 1; }
+}
+
+/* ---------- Hero Parallax ---------- */
+.hero-video {
+  transform: scale(1.05);
+  transition: transform 0.1s linear;
+}
+
+/* ---------- Nav Link Underline ---------- */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* ---------- Service Item Hover ---------- */
+.service-item {
+  overflow: hidden;
+}
+.service-item .service-name {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.service-item:hover .service-name {
+  transform: translateX(4px);
+}
+
+/* ---------- BTS Image Overlay ---------- */
+.bts-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(201,168,76,0.06);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.bts-item:hover::after { opacity: 1; }
+
+/* ---------- GSAP ScrollTrigger placeholders ---------- */
+/* These classes are added/removed by GSAP */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.gsap-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Gold shimmer on headline ---------- */
+@keyframes goldShimmer {
+  0%   { text-shadow: 0 0 40px rgba(201,168,76,0.3), 0 0 80px rgba(201,168,76,0.1); }
+  50%  { text-shadow: 0 0 80px rgba(201,168,76,0.6), 0 0 160px rgba(201,168,76,0.25); }
+  100% { text-shadow: 0 0 40px rgba(201,168,76,0.3), 0 0 80px rgba(201,168,76,0.1); }
+}
+.glow-word {
+  animation: goldShimmer 3s ease-in-out infinite;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .glow-word { animation: none; }
+  .scroll-line { animation: none; }
+  [data-aos] {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
