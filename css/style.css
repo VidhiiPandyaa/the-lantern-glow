@@ -208,11 +208,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    ========================================== */
 .hero {
   position: relative;
-  height: 100vh;
-  min-height: 620px;
+  height: 60vh;
+  min-height: 0;
   display: flex;
   align-items: flex-end;
-  padding-bottom: 10vh;
+  padding-bottom: 6vh;
   overflow: hidden;
 }
 .hero-video-wrap {
@@ -1327,23 +1327,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .hero {
   position: relative;
-
-  /* Allows hero to remain at least viewport height
-     without forcing content to vertically compress */
-  min-height: 100vh;
-  height: auto;
-
+  height: 99vh;
+  min-height: 0;
   box-sizing: border-box;
-
-  /* Prevent content from being hidden at the top */
   overflow: hidden;
 
-  /* Keep hero content anchored from the top */
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
-
 
 /* =========================================================
    HERO CONTENT
@@ -1352,12 +1344,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hero-content {
   position: relative;
   z-index: 5;
-
-  /* Space below navbar */
-  padding-top: 120px;
-
+  padding-top: 90px;
   margin-top: 0;
-
   box-sizing: border-box;
 }
 
@@ -1374,7 +1362,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-top: 0 !important;
   margin-bottom: 0;
 
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 
   box-sizing: border-box;
 }
