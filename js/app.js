@@ -235,4 +235,142 @@ function toggleService(button) {
     currentItem.classList.toggle('service-active');
 
 }
-\
+/* =========================================================
+   BTS VIDEO PLAY / PAUSE
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const btsItems = document.querySelectorAll(".bts-item.bts-video");
+
+    btsItems.forEach(function (item) {
+
+        const bgVideo = item.querySelector(".bts-bg-video");
+        const video = item.querySelector(".bts-main-video");
+        const playButton = item.querySelector(".bts-play-btn");
+
+        if (!video || !playButton) return;
+
+
+        /* -----------------------------------------
+           PLAY BUTTON
+           ----------------------------------------- */
+
+        playButton.addEventListener("click", function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            video.muted = false;
+
+            video.play()
+                .then(function () {
+
+                    item.classList.add("is-playing");
+
+                    /* Keep blurred background running */
+                    if (bgVideo) {
+                        bgVideo.play().catch(() => {});
+                    }
+
+                })
+                .catch(function (error) {
+
+                    console.log("Video playback error:", error);
+
+                    /* Fallback to muted playback */
+
+                    video.muted = true;
+
+                    video.play()
+                        .then(function () {
+
+                            item.classList.add("is-playing");
+
+                            if (bgVideo) {
+                                bgVideo.play().catch(() => {});
+                            }
+
+                        })
+                        .catch(function (error) {
+
+                            console.log(
+                                "Video could not play:",
+                                error
+                            );
+
+                        });
+
+                });
+
+        });
+
+
+        /* -----------------------------------------
+           CLICK MAIN VIDEO = PAUSE
+           ----------------------------------------- */
+
+        video.addEventListener("click", function () {
+
+            if (!video.paused) {
+
+                video.pause();
+
+                item.classList.remove("is-playing");
+
+            }
+
+        });
+
+
+        /* -----------------------------------------
+           MAIN VIDEO PLAY
+           ----------------------------------------- */
+
+        video.addEventListener("play", function () {
+
+            item.classList.add("is-playing");
+
+        });
+
+
+        /* -----------------------------------------
+           MAIN VIDEO PAUSE
+           ----------------------------------------- */
+
+        video.addEventListener("pause", function () {
+
+            item.classList.remove("is-playing");
+
+        });
+
+
+        /* -----------------------------------------
+           VIDEO ENDS
+           ----------------------------------------- */
+
+        video.addEventListener("ended", function () {
+
+            item.classList.remove("is-playing");
+
+            video.currentTime = 0;
+
+        });
+
+
+        /* -----------------------------------------
+           VIDEO ERROR
+           ----------------------------------------- */
+
+        video.addEventListener("error", function () {
+
+            console.log(
+                "Could not load BTS video:",
+                video.currentSrc
+            );
+
+        });
+
+    });
+
+});
